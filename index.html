@@ -95,6 +95,11 @@ nav a.active:hover {
     .client-item{flex:1 1 calc(20% - 10px);min-width:140px;padding:12px;border-radius:6px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));text-align:center;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;border:1px solid rgba(124,58,237,0.06);box-shadow:0 8px 30px rgba(124,58,237,0.06)}
     .client-item img{height:44px;object-fit:contain;display:block;margin:0 auto 6px}
 
+    /* === Force equal height for every client box (requested change) */
+    .client-item {
+      height: 115px;
+    }
+
     .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
     .gallery-thumb{border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
     .gallery-thumb img{width:100%;height:140px;object-fit:cover;display:block}
@@ -467,6 +472,32 @@ nav a.active:hover {
       .connect-panel { max-width: 92%; padding: 14px; }
     }
 
+    /* ------------------ Added mobile stacking rules (requested) ------------------ */
+    @media (max-width: 700px){
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .hero-aside{
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 0;
+        align-self: center;
+        justify-self: center;
+      }
+      .hero-aside img.logo-only{
+        max-height: 140px;
+        max-width: 220px;
+      }
+      .hero-aside::after{
+        width: 260px;
+        height: 260px;
+        filter: blur(18px);
+      }
+    }
+    /* -------------------------------------------------------------------------- */
+
   </style>
 </head>
 <body>
@@ -597,7 +628,7 @@ nav a.active:hover {
     </section>
 
     <section id="contact" class="section--contact reveal section">
-      <h3 class="section-title">Get In Touch</h3>
+      <h33 class="section-title">Get In Touch</h33>
       <p class="muted">Thank you for exploring the garment industry with us. Your curiosity drives the change our world needs. For more insights or collaboration opportunities, feel free to reach out. Let’s create a fairer, smarter future for fashion together.</p>
 
       <!-- Let's Connect style (placed at bottom, single-column contact grid) -->

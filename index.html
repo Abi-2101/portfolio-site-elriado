@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elriado | Siragiri Velan Apparels</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Elriado - Premium knitted garments manufacturer. Uniforms, Custom T-Shirts, Sportswear, Hoodies and more.">
+  <style>
+    :root{
+      --page-bg:#071026;
+      --muted:#9aa6b2;
+      --accent1:#7c3aed; /* purple */
+      --accent2:#061a2b; /* navy */
+      --header-height:72px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      background:var(--page-bg);
+      color:#e6eef3;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      scroll-behavior:smooth;
+      overflow-y:auto;
+      overflow-x:hidden;
+      padding-top:20px;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Header */
+    header{position:fixed;top:12px;left:0;right:0;display:flex;align-items:center;justify-content:center;z-index:999}
+    .header-wrap{width:100%;max-width:1100px;display:flex;align-items:center;justify-content:space-between;padding:8px 18px;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);border-radius:12px;transition:box-shadow .18s ease,transform .18s ease}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),#06b6d4);display:flex;align-items:center;justify-content:center;color:#021018;font-weight:800;font-size:18px;box-shadow:0 10px 40px rgba(124,58,237,0.08);overflow:hidden}
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+    nav{background:transparent;padding:6px 10px;border-radius:10px;display:flex;gap:12px;align-items:center}
+    nav a{color:#cfe9f3;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600;border:1px solid rgba(255,0,0,0.25);box-shadow:0 0 12px rgba(255,0,0,0.18);transition:transform .18s ease,box-shadow .18s ease,background .18s ease,border .18s ease}
+    nav a:hover{background:linear-gradient(90deg,#7c3aed,#4c1d95);color:#fff;transform:translateY(-2px) scale(1.04);box-shadow:0 0 22px rgba(124,58,237,0.45);border-color:rgba(124,58,237,0.6);}
+    nav a.active{background:#000;color:#fff;border-color:rgba(255,0,0,0.35);}
+
+/* Force purple glow on hover even when active (header nav fix) */
+nav a.active:hover {
+  background: linear-gradient(90deg, var(--accent1), #4c1d95) !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 0 22px rgba(124,58,237,0.45);
+  border-color: rgba(124,58,237,0.6);
+}
+
+    main{max-width:1100px;margin:0 auto;padding:110px 18px 60px}
+
+    /* Section base */
+    section{
+      position:relative;border-radius:12px;padding:22px;margin-bottom:14px;overflow:hidden;transition:transform .32s cubic-bezier(.2,.9,.2,1),box-shadow .32s cubic-bezier(.2,.9,.2,1),opacity .6s ease;
+      scroll-snap-align:start;
+      transform:translateY(20px) scale(.995);
+      opacity:0;
+    }
+    .section.in-view{transform:none;opacity:1}
+    .section-title{margin:0 0 8px;font-size:20px}
+    .muted{color:var(--muted);margin:0 0 12px}
+
+    /* Section colors */
+    .section--hero{background:linear-gradient(180deg,#081228,#071026)}
+    .section--about{background:#0b203a}
+    .section--history{background:#062b2f}
+    .section--products{background:#2b1b3b}
+    .section--services{background:#0a2b1b}
+    .section--clients{background:#1b1630}
+    .section--gallery{background:#3b1228}
+    .section--contact{background:#0f2130}
+
+    /* NOTE: position:relative added so the hero-aside can be absolute positioned inside the hero (top-right) */
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:center; position: relative;}
+    .eyebrow{display:inline-block;padding:6px 10px;background:rgba(255,255,255,0.02);border-radius:999px;color:var(--muted);font-weight:600;margin-bottom:12px;border:1px solid rgba(124,58,237,0.6);box-shadow:0 8px 24px rgba(124,58,237,0.06);}
+    .hero h2{font-size:34px;margin:6px 0;color:#fff}
+    .lead{color:var(--muted);font-size:15px}
+    .cta-row{margin-top:14px;display:flex;gap:12px}
+
+    .btn{background:#fff;color:#021018;padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none;display:inline-block;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#cfe9f3}
+    .btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 30px 90px rgba(124,58,237,0.18);background:linear-gradient(90deg,var(--accent1),#061018);color:#fff}
+    .btn.glow-purple{box-shadow:0 30px 120px rgba(124,58,237,0.28);background:linear-gradient(90deg,var(--accent1),#371a75);color:#fff}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .prod-card{display:flex;gap:10px;align-items:center;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);transition:transform .18s ease,box-shadow .18s ease}
+    .prod-card img{width:100px;height:76px;object-fit:cover;border-radius:6px}
+
+    .clients{display:flex;flex-wrap:wrap;gap:10px}
+    .client-item{flex:1 1 calc(20% - 10px);min-width:140px;padding:12px;border-radius:6px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));text-align:center;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;border:1px solid rgba(124,58,237,0.06);box-shadow:0 8px 30px rgba(124,58,237,0.06)}
+    .client-item img{height:44px;object-fit:contain;display:block;margin:0 auto 6px}
+
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .gallery-thumb{border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+    .gallery-thumb img{width:100%;height:140px;object-fit:cover;display:block}
+    .gallery-thumb:hover, .gallery-thumb:focus-within{transform:translateY(-6px) scale(1.03);box-shadow:0 40px 120px rgba(255,255,255,0.12);filter:brightness(1.05);outline:none}
+
+    /* CONTACT GRID: changed to a single-column layout and align items bottom to place "Let's connect" at the bottom like reference */
+    .contact-grid{display:grid;grid-template-columns:1fr;gap:14px;align-items:end}
+
+    .reveal{opacity:0;transform:translateY(30px) scale(.995);transition:opacity .7s cubic-bezier(.2,.9,.2,1),transform .7s cubic-bezier(.2,.9,.2,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    .click-anim{animation:clickPop .28s ease forwards}
+    @keyframes clickPop{0%{transform:scale(1);box-shadow:none}50%{transform:scale(1.06);box-shadow:0 18px 50px rgba(124,58,237,0.18)}100%{transform:scale(1);box-shadow:none}}
+
+    .glow-purple{background:linear-gradient(90deg,var(--accent1),var(--accent2)) !important;color:#fff !important;box-shadow:0 20px 60px rgba(124,58,237,0.28);}
+
+    .hero-topname{transition:opacity .35s ease,transform .35s ease}
+    .hero-topname.hidden{opacity:0;transform:translateY(-10px)}
+
+    /* Full-page canonical popover gallery */
+    .full-gallery{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:2000;background:rgba(2,6,23,0.45);backdrop-filter:blur(6px)}
+    .full-gallery.visible{display:flex}
+    .full-gallery.opening .panel{transform:scale(1);opacity:1}
+    .full-gallery .panel{background:linear-gradient(180deg,rgba(8,10,15,0.98),rgba(12,14,20,0.98));border-radius:12px;max-width:1100px;width:92%;max-height:84vh;overflow:auto;padding:18px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 40px 120px rgba(2,6,23,0.6);transform:scale(.85);opacity:0;transition:transform .55s cubic-bezier(.2,.9,.2,1),opacity .45s ease}
+    .full-gallery .toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .full-gallery .images{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .full-gallery .images img{width:100%;height:120px;object-fit:cover;border-radius:8px;transition:transform .18s ease,box-shadow .18s ease}
+    .full-gallery .images img:hover{transform:scale(1.03);box-shadow:0 22px 70px rgba(124,58,237,0.16)}
+
+    @media(max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr)} .gallery-grid{grid-template-columns:repeat(2,1fr)} .full-gallery .images{grid-template-columns:repeat(3,1fr)} main{padding:150px 18px 40px} }
+    @media(max-width:600px){ .grid{grid-template-columns:1fr} .contact-grid{grid-template-columns:1fr} nav{display:none} .full-gallery .images{grid-template-columns:repeat(2,1fr)} }
+
+    /* Social buttons (reference style) */
+    .social-buttons{display:flex;gap:12px;align-items:center}
+    .social-btn{width:80px;height:88px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(6px);background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));text-decoration:none;color:inherit;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+    .social-btn .icon{display:flex;align-items:center;justify-content:center}
+    .social-btn svg{width:28px;height:28px}
+    .social-btn .label{font-size:12px;margin-top:8px;color:var(--muted);font-weight:600}
+    .social-btn:hover{transform:translateY(-6px) scale(1.04);box-shadow:0 30px 90px rgba(124,58,237,0.24);border-color:rgba(124,58,237,0.32);color:#fff}
+    @media(max-width:600px){.social-buttons{justify-content:flex-start}}
+
+    /* Section-specific hover glows (scoped) */
+    .section--services li{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease; border:1px solid rgba(255,255,255,0.02)}
+    .section--services li:hover, .section--services li:focus-visible{
+      transform:translateY(-6px) scale(1.02);
+      box-shadow:0 28px 80px rgba(6,182,120,0.14);
+      border-color:rgba(6,182,120,0.22);
+      background:linear-gradient(180deg,rgba(6,182,120,0.03),rgba(6,182,120,0.01));
+      color:#fff;
+    }
+
+    .section--products .prod-card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+    .section--products .prod-card:hover, .section--products .prod-card:focus-within{
+      transform:translateY(-6px) scale(1.02);
+      box-shadow:0 28px 90px rgba(124,58,237,0.18);
+      border:1px solid rgba(124,58,237,0.22);
+      background:linear-gradient(180deg,rgba(124,58,237,0.03),rgba(124,58,237,0.01));
+    }
+
+    .section--clients .client-item{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+    .section--clients .client-item:hover, .section--clients .client-item:focus-within{
+      transform:translateY(-8px) scale(1.03);
+      box-shadow:0 34px 110px rgba(124,58,237,0.20);
+      border:1px solid rgba(124,58,237,0.28);
+      background:linear-gradient(180deg,rgba(124,58,237,0.02),rgba(124,58,237,0.01));
+    }
+
+    .section--about > div > div,
+    .section--products .prod-card,
+    .section--services li,
+    .section--clients .client-item{
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 6px 18px rgba(124,58,237,0.04), inset 0 0 18px rgba(124,58,237,0.02);
+      transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease, background .22s ease;
+    }
+
+    /* Intensified sharp glow on hover/focus (visible when interacted) */
+    .section--about > div > div:hover,
+    .section--products .prod-card:hover,
+    .section--services li:hover,
+    .section--clients .client-item:hover,
+    .section--about > div > div:focus-within,
+    .section--products .prod-card:focus-within,
+    .section--services li:focus-within,
+    .section--clients .client-item:focus-within{
+      border:1px solid rgba(124,58,237,0.5);
+      box-shadow:0 48px 160px rgba(124,58,237,0.26), inset 0 0 36px rgba(124,58,237,0.06);
+      transform: translateY(-8px) scale(1.03);
+      background: linear-gradient(180deg, rgba(124,58,237,0.03), rgba(124,58,237,0.01));
+    }
+
+    /* --- OPTION A1: Strong base glow + strong hover glow for targeted sections --- */
+    /* About Us - violet-pink neon */
+    .section--about > div > div{
+      border:1px solid rgba(196,100,255,0.22);
+      box-shadow:0 10px 30px rgba(196,100,255,0.08), inset 0 0 18px rgba(196,100,255,0.03);
+    }
+    .section--about > div > div:hover, .section--about > div > div:focus-within{
+      border:1px solid rgba(238,130,255,0.9);
+      box-shadow:0 60px 220px rgba(238,130,255,0.28), inset 0 0 54px rgba(238,130,255,0.09);
+      transform:translateY(-10px) scale(1.08);
+    }
+
+    /* Products - electric purple neon */
+    .section--products .prod-card{
+      border:1px solid rgba(140,80,255,0.22);
+      box-shadow:0 10px 30px rgba(140,80,255,0.06), inset 0 0 16px rgba(140,80,255,0.02);
+    }
+    .section--products .prod-card:hover, .section--products .prod-card:focus-within{
+      border:1px solid rgba(124,58,237,0.95);
+      box-shadow:0 72px 260px rgba(124,58,237,0.32), inset 0 0 60px rgba(124,58,237,0.08);
+      transform:translateY(-12px) scale(1.09);
+    }
+
+    /* Services - aqua / green neon */
+    .section--services li{
+      border:1px solid rgba(56,210,170,0.18);
+      box-shadow:0 8px 26px rgba(56,210,170,0.06), inset 0 0 12px rgba(56,210,170,0.02);
+    }
+    .section--services li:hover, .section--services li:focus-within{
+      border:1px solid rgba(6,182,120,0.9);
+      box-shadow:0 64px 220px rgba(6,182,120,0.28), inset 0 0 48px rgba(6,182,120,0.06);
+      transform:translateY(-10px) scale(1.07);
+    }
+
+    /* Clients - blue-violet neon */
+    .section--clients .client-item{
+      border:1px solid rgba(110,90,255,0.18);
+      box-shadow:0 8px 26px rgba(110,90,255,0.06), inset 0 0 12px rgba(110,90,255,0.02);
+    }
+    .section--clients .client-item:hover, .section--clients .client-item:focus-within{
+      border:1px solid rgba(88,64,255,0.9);
+      box-shadow:0 80px 260px rgba(88,64,255,0.30), inset 0 0 56px rgba(88,64,255,0.08);
+      transform:translateY(-12px) scale(1.08);
+    }
+
+    .section--about > div > div, .section--products .prod-card, .section--services li, .section--clients .client-item{
+      will-change:transform,box-shadow,border-color;
+    }
+
+    /* ========== Connect area specific additions (only) ========== */
+
+    /* Force uniform tile size and layout for connect cards */
+    .connect-card{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      align-items:center;
+      text-align:center;
+      gap:12px;
+      padding:12px;
+      border-radius:10px;
+      width:160px;            /* fixed width */
+      height:160px;           /* fixed height */
+      flex:0 0 160px;         /* ensure inline flex doesn't override layout */
+      min-width:160px;
+      box-shadow:none;
+      background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005));
+      border:1px solid rgba(255,255,255,0.03);
+      transition: transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s cubic-bezier(.2,.9,.2,1), border-color .22s ease, background .22s ease;
+    }
+
+    /* icon wrapper — made transparent and non-rounded (request: remove round box) */
+    .connect-card .icon-wrap{
+      width:56px;height:56px;border-radius:0;display:flex;align-items:center;justify-content:center;background:transparent;
+      transition: background .22s ease, transform .18s ease, box-shadow .22s ease;
+      box-shadow:none;
+    }
+
+    /* ensure any uploaded SVGs used as icons fit the tile and are crisp */
+    .connect-card .icon-wrap img.icon-img{
+      width:26px;
+      height:26px;
+      display:block;
+      object-fit:contain;
+      /* Force the uploaded SVG icons to render white (matches E-mail/Instagram glyph style) */
+      filter: invert(1) grayscale(1) brightness(2);
+      /* preserve crispness */
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    /* Connect button inside each card */
+    .connect-btn{
+      border: none;
+      padding:8px 12px;
+      border-radius:8px;
+      font-weight:700;
+      background: linear-gradient(90deg,var(--accent1),#371a75);
+      color: #fff;
+      box-shadow: 0 20px 60px rgba(124,58,237,0.22);
+      cursor: pointer;
+      transition: transform .16s ease, box-shadow .18s ease, background .22s ease, color .18s ease;
+      outline: none;
+    }
+    .connect-btn:active{ transform: translateY(1px) scale(.995); }
+
+    /* Default hover for connect-card (small lift) */
+    .connect-card:hover{
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 34px 120px rgba(255,255,255,0.06);
+    }
+
+    /* Per-tile hover colours override - keep precedence */
+    /* E-mail -> blue (changed as requested earlier) */
+    .connect-email:hover{
+      border-color: rgba(43,123,185,0.95) !important;
+      box-shadow: 0 34px 120px rgba(43,123,185,0.14) !important;
+      background: linear-gradient(180deg, rgba(43,123,185,0.04), rgba(255,255,255,0.02)) !important;
+      color: #eaf3fb !important;
+    }
+    .connect-email:hover .icon-wrap{ /* icon background remains transparent but we can add subtle tint */ background: rgba(43,123,185,0.00) !important; box-shadow:none; }
+    .connect-email:hover .connect-btn{ background: linear-gradient(90deg, rgba(43,123,185,1), rgba(20,90,150,0.9)); box-shadow: 0 22px 70px rgba(43,123,185,0.18); color:#021018; }
+
+    /* LinkedIn -> LinkedIn-blue */
+    .connect-linkedin:hover{
+      border-color: rgba(43,123,185,0.95) !important;
+      box-shadow: 0 34px 120px rgba(43,123,185,0.14) !important;
+      background: linear-gradient(180deg, rgba(43,123,185,0.04), rgba(255,255,255,0.02)) !important;
+      color: #eaf3fb !important;
+    }
+    .connect-linkedin:hover .icon-wrap{ background: rgba(43,123,185,0.00) !important; box-shadow:none; }
+    .connect-linkedin:hover .connect-btn{ background: linear-gradient(90deg, rgba(43,123,185,1), rgba(20,90,150,0.9)); box-shadow: 0 22px 70px rgba(43,123,185,0.18); color:#021018; }
+
+    /* WhatsApp -> green (hover) but icon is supplied by uploaded SVG */
+    .connect-whatsapp:hover{
+      border-color: rgba(96,194,120,0.95) !important;
+      box-shadow: 0 34px 120px rgba(96,194,120,0.14) !important;
+      background: linear-gradient(180deg, rgba(96,194,120,0.04), rgba(255,255,255,0.02)) !important;
+      color: #eafaf0 !important;
+    }
+    .connect-whatsapp:hover .icon-wrap{ background: rgba(96,194,120,0.00) !important; box-shadow:none; }
+    .connect-whatsapp:hover .connect-btn{ background: linear-gradient(90deg, rgba(96,194,120,1), rgba(52,160,100,0.9)); box-shadow: 0 22px 70px rgba(96,194,120,0.18); color:#021018; }
+
+    /* X -> magenta/pink (left in case other parts referenced it; not used in modified markup) */
+    .connect-x:hover{
+      border-color: rgba(226,76,166,0.95) !important;
+      box-shadow: 0 34px 120px rgba(226,76,166,0.14) !important;
+      background: linear-gradient(180deg, rgba(226,76,166,0.04), rgba(255,255,255,0.02)) !important;
+      color: #fff0f7 !important;
+    }
+    .connect-x:hover .icon-wrap{ background: rgba(226,76,166,0.00) !important; box-shadow:none; }
+    .connect-x:hover .connect-btn{ background: linear-gradient(90deg, rgba(226,76,166,1), rgba(175,48,128,0.9)); box-shadow: 0 22px 70px rgba(226,76,166,0.18); color:#021018; }
+
+    /* ensure text colors remain readable */
+    .connect-card .label{ font-weight:700; color:#fff; }
+    .connect-card .sub{ font-size:12px; color:var(--muted); }
+
+    /* small layout tweak so tiles wrap nicely and align top on small width */
+    .connect-row{ display:flex; gap:10px; flex-wrap:wrap; align-items:flex-start; justify-content:center; }
+
+    /* responsiveness: shrink tiles on small screens but keep equal sizes */
+    @media(max-width:520px){
+      .connect-card{ width:calc(33% - 8px); min-width:92px; height:120px; flex:0 0 calc(33% - 8px); }
+      .connect-card .icon-wrap{ width:44px; height:44px; }
+      .connect-btn{ padding:6px 8px; font-size:13px; }
+    }
+
+    /* ==================== HERO ASIDE (absolute top-right inside hero) ==================== */
+
+    .hero-aside{
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0;
+      margin:0;
+      border-radius:0;
+      overflow:visible;
+      background:transparent;
+      border:none;
+      transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s cubic-bezier(.2,.9,.2,1), border-color .22s ease, background .28s ease;
+      will-change: transform, box-shadow, border-color, background;
+      z-index: 4;
+      pointer-events: auto;
+    }
+
+    .hero-aside img.logo-only{
+      display:block;
+      width:auto;
+      height:auto;
+      max-height:220px;
+      max-width:320px;
+      object-fit:contain;
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+      transition: transform .28s cubic-bezier(.2,.9,.2,1), filter .28s cubic-bezier(.2,.9,.2,1);
+      will-change: transform, filter;
+      transform-origin: center center;
+      image-rendering: crisp-edges;
+    }
+
+    /* glow & hover effects for logo (kept as before; no other changes) */
+    .hero-aside::after{ content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(0.8); width: 360px; height: 360px; border-radius: 50%; pointer-events: none; filter: blur(28px); opacity: 0; transition: opacity .35s ease, transform .45s cubic-bezier(.2,.9,.2,1); z-index: 1; background: radial-gradient(circle at 40% 40%, rgba(124,58,237,0.28), rgba(6,182,120,0.06) 35%, rgba(2,6,23,0.00) 60%); mix-blend-mode: screen; will-change: opacity, transform; }
+    @keyframes logoGlow { 0% { opacity: 0.0; transform: translate(-50%, -50%) scale(0.88); filter: blur(24px); } 50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.0); filter: blur(34px); } 100% { opacity: 0.0; transform: translate(-50%, -50%) scale(1.08); filter: blur(44px); } }
+    @keyframes logoPulse { 0% { transform: translateZ(0) scale(1); } 50% { transform: translateZ(0) scale(1.02); } 100% { transform: translateZ(0) scale(1); } }
+    .hero-aside.logo-hover::after{ animation: logoGlow 1.6s ease-in-out infinite; opacity: 1; transform: translate(-50%, -50%) scale(1.0); }
+    .hero-aside.logo-hover img.logo-only{ animation: logoPulse 1.6s ease-in-out infinite; transform: translateZ(0) scale(1.01); filter: drop-shadow(0 8px 30px rgba(124,58,237,0.18)); z-index: 2; }
+    .hero-aside.img-tilt img.logo-only{ transition: transform .06s linear, filter .18s ease; will-change: transform; }
+    .hero-aside:focus-within{ outline: none; }
+    .hero-aside:focus-within.logo-hover::after, .hero-aside:focus-within.logo-hover img.logo-only{ animation-play-state: running; }
+    @media(max-width:700px){ .hero-aside::after{ width: 260px; height: 260px; filter: blur(22px); } .hero-aside img.logo-only{ max-height:180px; max-width:240px; } .hero-aside{ top: 10px; right: 10px; } }
+    @media(max-width:420px){ .hero-aside::after{ width: 180px; height: 180px; filter: blur(18px); } .hero-aside img.logo-only{ max-height:120px; max-width:160px; } .hero-aside{ top: 8px; right: 8px; } }
+
+    /* Instagram tile hover - matching X/E-mail style pattern (magenta/pink like X) */
+    .connect-instagram:hover{
+      border-color: rgba(226,76,166,0.95) !important;
+      box-shadow: 0 34px 120px rgba(226,76,166,0.14) !important;
+      background: linear-gradient(180deg, rgba(226,76,166,0.04), rgba(255,255,255,0.02)) !important;
+      color: #fff0f7 !important;
+    }
+    .connect-instagram:hover .icon-wrap{ background: rgba(226,76,166,0.00) !important; box-shadow:none; }
+    .connect-instagram:hover .connect-btn{
+      background: linear-gradient(90deg, rgba(226,76,166,1), rgba(175,48,128,0.9));
+      box-shadow: 0 22px 70px rgba(226,76,166,0.18);
+      color:#021018;
+    }
+
+    /* ========== CONNECT PANEL: thin red shining border (NO HOVER / NO GLOW) ========== */
+
+    /* .connect-panel expands the "Let's connect" area horizontally (fills available width up to max) */
+    .connect-panel {
+      position: relative;
+      width: 100%;
+      max-width: 980px;             /* expanded width so left/right space reduces */
+      margin: 0 auto;               /* center on page */
+      padding: 18px;                /* keep same inner spacing */
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 34px rgba(2,6,23,0.35);
+      z-index: 1;
+      overflow: visible;
+      isolation: isolate;
+    }
+
+    /* Replace the previous multicolor glow with a simple thin red border (no hover or glow) */
+    .connect-panel::before{
+      content: "";
+      position: absolute;
+      left: -1px;
+      right: -1px;
+      top: -1px;
+      bottom: -1px;
+      border-radius: 13px;
+      background: transparent;
+      z-index: 0;
+      pointer-events: none;
+      /* draw a thin red border similar to header nav buttons */
+      box-shadow: none;
+      border: 1px solid rgba(255,0,0,0.25);
+    }
+    .connect-panel::after{
+      content: "";
+      position: absolute;
+      left: 2px;
+      right: 2px;
+      top: 2px;
+      bottom: 2px;
+      border-radius: 11px;
+      background: transparent;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .connect-panel > *{ position: relative; z-index: 3; }
+
+    @media (max-width: 760px){
+      .connect-panel { max-width: 92%; padding: 14px; }
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-wrap">
+      <div class="brand">
+        <div class="logo">
+          <a href="Images/Subhash_Murugesan_PHOTO_web.jpeg">
+            <img src="Images/Subhash_Murugesan_PHOTO_web.jpeg" alt="Subhash Murugesan">
+          </a>
+        </div>
+        <div>
+          <h1 style="margin:0;font-size:16px">Subhash Murugesan</h1>
+          <div style="font-size:12px;color:var(--muted)">Founder | ELRIADO</div>
+        </div>
+      </div>
+
+      <nav id="main-nav">
+        <a href="#about" class="active">About Us</a>
+        <a href="#history">Our History</a>
+        <a href="#products">Products</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Get In Touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section--hero reveal section" id="top-hero">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">Elriado • Siragiri Velan Apparels</div>
+          <h2 class="hero-topname">Trusted Manufacturer of Premium Knitted Garments</h2>
+          <p class="lead">Established in 2019 and built on decades of textile expertise, Elriado delivers high-quality knitted garments — from custom corporate uniforms to sportswear and kids' collections — with a monthly capacity of 50,000 pieces and annual production exceeding 5 lakh garments.</p>
+
+          <div style="margin-top:12px;display:flex;gap:12px;align-items:center">
+            <div style="display:flex;flex-direction:column">
+              <strong style="font-size:18px">50,000</strong>
+              <small style="color:var(--muted)">pieces / month</small>
+            </div>
+            <div style="display:flex;flex-direction:column;margin-left:12px">
+              <strong style="font-size:18px">5,00,000+</strong>
+              <small style="color:var(--muted)">garments / year</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- HERO ASIDE: placed absolute top-right corner of the hero -->
+        <aside class="hero-aside" aria-hidden="false" tabindex="0">
+          <img class="logo-only" src="Images/ELRIADO_Bird_LOGO.png" alt="Elriado brand logo">
+        </aside>
+
+      </div>
+    </section>
+
+    <section id="about" class="section--about reveal section">
+      <h3 class="section-title">About Us</h3>
+      <p class="muted">Siragiri Velan Apparels, under the brand name Elriado, is a trusted name in the clothing industry. Established in 2019, we have rapidly grown into one of the most reputed manufacturers of high-quality knitted garments.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px;background:rgba(255,255,255,0.02);padding:12px;border-radius:8px">
+          <h4 style="margin-top:0">What we make</h4>
+          <p style="color:var(--muted);margin:0">Premium knitted garments for brands, corporates and schools. From design-to-delivery, we handle bulk production with strict quality checks.</p>
+        </div>
+        <div style="flex:1;min-width:240px;background:rgba(255,255,255,0.02);padding:12px;border-radius:8px">
+          <h4 style="margin-top:0">Capacity & Promise</h4>
+          <p style="color:var(--muted);margin:0">Manufacturing capacity: 50,000 pieces per month. Annual delivery capacity exceeding 5 lakh orders with customization for corporate needs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="history" class="section--history reveal section">
+      <h3 class="section-title">Our History</h3>
+      <p class="muted">Founded by Mr. Subhash Murugesan in 2019, Siragiri Velan Apparels is built on a strong foundation of passion and commitment. Mr. Subhash began his journey in the textile industry in 2016, and through continuous effort, hard work, and reliability, the company has achieved a remarkable manufacturing capacity of 50,000 pieces per month.</p>
+    </section>
+
+    <section id="products" class="section--products reveal section">
+      <h3 class="section-title">Products</h3>
+      <p class="muted">We specialize in producing premium knitted garments with a production volume of over 5 lakh garments annually. Our product range includes:</p>
+      <div class="grid" style="margin-top:12px">
+        <div class="prod-card"><img src="Images/Round_Neck.png" alt="tshirt"><div><strong>T-Shirts — Round Neck & Polo</strong><p style="color:var(--muted);margin:6px 0 0;font-size:13px">Comfortable, durable and customizable fabrics.</p></div></div>
+        <div class="prod-card"><img src="Images/Black_premium_image.jpg" alt="shirt"><div><strong>Shirt Collections</strong><p style="color:var(--muted);margin:6px 0 0;font-size:13px">Smart casual and formal shirts.</p></div></div>
+        <div class="prod-card"><img src="Images/Sportwears_Elriado.png" alt="sportswear"><div><strong>Sportswear & Jersey</strong><p style="color:var(--muted);margin:6px 0 0;font-size:13px">Breathable, performance fabrics.</p></div></div>
+        <div class="prod-card"><img src="Images/Hoodie_Img.png" alt="hoodie"><div><strong>Hoodies</strong><p style="color:var(--muted);margin:6px 0 0;font-size:13px">Warm, soft and stylish hoodies.</p></div></div>
+        <div class="prod-card"><img src="Images/Track_Pant_Img.png" alt="shorts"><div><strong>Shorts & Track Pants</strong><p style="color:var(--muted);margin:6px 0 0;font-size:13px">Comfort-fit bottoms for sports.</p></div></div>
+        <div class="prod-card"><img src="Images/Elriado_Round_Neck.jpeg" alt="kids"><div><strong>Kids Collections</strong><p style="color:var(--muted);margin:6px 0 0;font-size:13px">Durable, easy-care garments for children.</p></div></div>
+      </div>
+    </section>
+
+    <section id="services" class="section--services reveal section">
+      <h3 class="section-title">Services</h3>
+      <p class="muted">We specialize in producing corporate orders with customized solutions, including uniform T-shirts tailored to client requirements. With a production capacity of over 5 lakh orders annually, we proudly deliver high-quality products and services to a wide range of clients.</p>
+      <ul style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:0;margin:8px 0 0;list-style:none">
+        <li style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px">Uniform T-shirts & Shirts</li>
+        <li style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px">Customized T-shirts</li>
+        <li style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px">Customized Sportswears & Jersey</li>
+        <li style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px">Corporate Orders</li>
+        <li style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px">Group T-Shirts</li>
+        <li style="background:rgba(255,255,255,0.02);padding:10px;border-radius:8px">School Uniforms</li>
+      </ul>
+    </section>
+
+    <section id="clients" class="section--clients reveal section">
+      <h3 class="section-title">Our Valuable Clients</h3>
+      <p class="muted">Some of the brands and organisations we've worked with.</p>
+      <div class="clients" style="margin-top:12px">
+        <div class="client-item"><img src="Images/Emos_Elriado.jpeg" onerror="this.src='https://images.unsplash.com/photo-152et...'" alt="Emos"><div>Emos Technology</div></div>
+        <div class="client-item"><img src="Images/StylePoint_Elriado.jpeg" alt="Style Point"><div>Style Point</div></div>
+        <div class="client-item"><img src="Images/Strada_Elriado.jpeg" alt="Strada"><div>Strada</div></div>
+        <div class="client-item"><img src="https://logo.clearbit.com/federalbank.co.in" onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop'" alt="Federal Bank"><div>Federal Bank</div></div>
+        <div class="client-item"><img src="https://logo.clearbit.com/hyundai.com" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=400&auto=format&fit=crop'" alt="Hyundai"><div>Hyundai Motors</div></div>
+        <div class="client-item"><img src="Images/Slash_Elriado.jpeg" alt="Slash"><div>Slash</div></div>
+        <div class="client-item"><img src="https://logo.clearbit.com/royalenfield.com" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop'" alt="Royal Enfield"><div>Royal Enfield</div></div>
+        <div class="client-item"><img src="Images/Milky_Mist_Logo_Elriado.png" alt="Milky Mist"><div>Milky Mist</div></div>
+        <div class="client-item"><img src="Images/Nutrifeed_Elriado.jpeg" alt="Nutrifeed"><div>Nutrifeed</div></div>
+        <div class="client-item"><img src="Images/Galaxy_Power_Solutions_Elriado.jpeg" alt="Galaxy Power"><div>Galaxy Power Solutions</div></div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section--gallery reveal section" style="cursor:pointer">
+      <h3 class="section-title">Gallery</h3>
+      <p class="muted">A small selection of recent work and fabric details. Click any image to open the full gallery.</p>
+      <div class="gallery-grid" style="margin-top:12px">
+        <div class="gallery-thumb"><img src="Images/Elriado_VM_img.png" alt="g1"></div>
+        <div class="gallery-thumb"><img src="Images/Elriado_group_tshirt.png" alt="g2"></div>
+        <div class="gallery-thumb"><img src="Images/Nutrifeed_Elriado_Img.png" alt="g3"></div>
+        <div class="gallery-thumb"><img src="Images/Polo_Collar_Elriado.png" alt="g4"></div>
+      </div>
+    </section>
+
+    <section id="contact" class="section--contact reveal section">
+      <h3 class="section-title">Get In Touch</h3>
+      <p class="muted">Thank you for exploring the garment industry with us. Your curiosity drives the change our world needs. For more insights or collaboration opportunities, feel free to reach out. Let’s create a fairer, smarter future for fashion together.</p>
+
+      <!-- Let's Connect style (placed at bottom, single-column contact grid) -->
+      <div class="contact-grid" style="margin-top:18px;gap:18px;align-items:end">
+
+        <!-- Left column: expanded 'Let's connect' panel -->
+        <div style="width:100%; display:flex; justify-content:center;">
+          <div class="connect-panel">
+            <h4 style="margin:0 0 6px">Let's connect</h4>
+            <p style="color:var(--muted);margin:0 0 12px">Quick links to reach us — pick your preferred channel.</p>
+
+            <div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.4">
+              <div style="margin-bottom:6px">Contact: <strong style="color:#fff">+91 97900 67132</strong></div>
+              <div style="margin-bottom:6px">Address: <strong style="color:#fff">Elriado, Erode - 638 051</strong></div>
+              <div>E-mail: <strong style="color:#fff">siragirivelanapparels@gmail.com</strong></div>
+            </div>
+
+            <div class="connect-row" style="justify-content:center;">
+              <a target="_blank" href="mailto:siragirivelanapparels@gmail.com" class="connect-card connect-email" style="text-decoration:none;color:inherit;">
+                <div class="icon-wrap" aria-hidden="true">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6" /></svg>
+                </div>
+                <div class="label">E-mail</div>
+                <button type="button" class="connect-btn" aria-label="Connect via email">Connect</button>
+              </a>
+
+              
+              <a target="_blank" href="https://www.instagram.com/subhash_murugessan?igsh=bTE2NnB6NjN6NWFy" class="connect-card connect-instagram" style="text-decoration:none;color:inherit;">
+                <div class="icon-wrap" aria-hidden="true">
+                  <!-- Using uploaded SVG: instagram-social-media-svg.svg (rendered white via CSS filter) -->
+                  <img src="SVG/instagram-social-media-svg.svg" alt="Instagram" class="icon-img" aria-hidden="true" />
+                </div>
+                <div class="label">Instagram</div>
+                <button type="button" class="connect-btn" aria-label="Connect via Instagram">Connect</button>
+              </a>
+
+
+              <a target="_blank" href="https://wa.me/919790067132" rel="noopener noreferrer" class="connect-card connect-whatsapp" style="text-decoration:none;color:inherit;">
+                <div class="icon-wrap" aria-hidden="true">
+                  <!-- Using uploaded SVG: whatsapp-svgrepo.svg (rendered white via CSS filter) -->
+                  <img src="SVG/whatsapp-svgrepo.svg" alt="WhatsApp" class="icon-img" aria-hidden="true" />
+                </div>
+                <div class="label">WhatsApp</div>
+                <button type="button" class="connect-btn" aria-label="Connect via WhatsApp">Connect</button>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTE: "Send an enquiry" section removed as requested. -->
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- canonical fullGallery popover (single instance) -->
+  <div id="fullGallery" class="full-gallery hidden" aria-hidden="true">
+    <div class="panel" role="dialog" aria-modal="true" aria-label="Gallery panel">
+      <div class="toolbar">
+        <div class="title"><strong>Gallery — ELRIADO</strong> <span style="color:var(--muted);font-size:13px;margin-left:8px">(11 images)</span></div>
+        <div>
+          <button id="closeGallery" class="close-btn">Close</button>
+        </div>
+      </div>
+      <div class="images" id="fullGalleryImages"></div>
+    </div>
+  </div>
+
+  <footer style="max-width:1100px;margin:0 auto;padding:12px 18px;color:var(--muted)">© <strong>ELRIADO</strong> • Siragiri Velan Apparels — 2019 - 2025</footer>
+
+  <script>
+    // Navigation & smooth scroll
+    const nav = document.getElementById('main-nav');
+    const links = nav ? nav.querySelectorAll('a') : [];
+    const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 72;
+    function smoothScrollTo(el){ const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 12; window.scrollTo({top,behavior:'smooth'}); }
+
+    links.forEach(link=>{
+      link.addEventListener('click', function(e){ e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if(target) smoothScrollTo(target); this.classList.add('glow-purple'); setTimeout(()=>this.classList.remove('glow-purple'),600); });
+      link.addEventListener('mouseenter', function(){ this.classList.add('glow-purple'); });
+      link.addEventListener('mouseleave', function(){ this.classList.remove('glow-purple'); });
+    });
+
+    document.querySelectorAll('[data-anim]').forEach(el=>{ el.addEventListener('click',(e)=>{ const href = el.getAttribute('href'); if(href && href.startsWith('#')){ e.preventDefault(); const target = document.querySelector(href); if(target) smoothScrollTo(target); } el.classList.add('glow-purple'); setTimeout(()=>el.classList.remove('glow-purple'),600); el.classList.add('click-anim'); setTimeout(()=>el.classList.remove('click-anim'),420); }); });
+
+    // Gallery: open in-page popover showing uploaded images
+    const gallerySection = document.getElementById('gallery');
+    if(gallerySection) gallerySection.addEventListener('click', (e)=>{ openFullGallery(e); });
+
+    const fullGallery = document.getElementById('fullGallery');
+    const closeGallery = document.getElementById('closeGallery');
+    const imagesContainer = document.getElementById('fullGalleryImages');
+
+    function buildGallery(){
+      const imgs = [
+        'Images/Elriado_VM_img.png','Images/Elriado_group_tshirt.png','Images/Nutrifeed_Elriado_Img.png','Images/Polo_Collar_Elriado.png',
+        'Images/slash_img_elriado.png','Images/Elriado_group_t-shirt.png','Images/Elriado_T-Shirt.png','Images/Elriado_Sportwear.jpeg',
+        'Images/Elriado_Couple_1.jpeg','Images/Elriado_Couple.jpeg','Images/Elriado_Round_Neck.jpeg'
+      ];
+      imagesContainer.innerHTML='';
+      imgs.forEach((src,idx)=>{
+        const img = document.createElement('img'); img.src = src; img.alt = 'Gallery image '+(idx+1); img.tabIndex = 0; img.addEventListener('click', ()=> openModal(img.src)); imagesContainer.appendChild(img);
+      });
+    }
+
+    function openFullGallery(event){ buildGallery(); fullGallery.classList.remove('hidden'); fullGallery.classList.add('visible'); setTimeout(()=> fullGallery.classList.add('opening'), 20); fullGallery.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden'; setTimeout(()=> closeGallery && closeGallery.focus(), 420); }
+    function closeFullGallery(){ fullGallery.classList.remove('opening'); setTimeout(()=>{ fullGallery.classList.remove('visible'); fullGallery.classList.add('hidden'); fullGallery.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; }, 360); }
+    if(closeGallery) closeGallery.addEventListener('click', closeFullGallery);
+    fullGallery.addEventListener('click', (ev)=>{ if(ev.target === fullGallery) closeFullGallery(); });
+    document.addEventListener('keydown',(ev)=>{ if(ev.key === 'Escape'){ const modalEl = document.getElementById('modal'); if(modalEl && modalEl.style.display === 'flex'){ modalEl.style.display = 'none'; } else { closeFullGallery(); } } });
+
+    // Modal for individual image
+    const modal = document.createElement('div'); modal.id = 'modal'; modal.style.position='fixed'; modal.style.inset='0'; modal.style.background='rgba(0,0,0,0.85)'; modal.style.display='none'; modal.style.alignItems='center'; modal.style.justifyContent='center'; modal.style.zIndex=9999; modal.innerHTML = '<div style="max-width:90%;max-height:90%"><img id="modalImg" style="max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 12px 60px rgba(0,0,0,0.6)"></div>'; document.body.appendChild(modal);
+    function openModal(src){ const m=document.getElementById('modal'); document.getElementById('modalImg').src = src; m.style.display = 'flex'; }
+    document.body.addEventListener('click',(e)=>{ const m=document.getElementById('modal'); if(m && m.style.display === 'flex' && e.target.id === 'modal') m.style.display = 'none'; });
+
+    // Intersection observers for reveal and focus
+    const revealObserver = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('visible'); entry.target.classList.add('in-view'); } }); },{threshold:0.18});
+    document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+    const focusObserver = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ const el = entry.target; if(entry.intersectionRatio > 0.55){ el.classList.add('in-focus'); } else { el.classList.remove('in-focus'); } const clients = el.querySelectorAll && el.querySelectorAll('.client-item'); if(clients && clients.length){ clients.forEach(c=>{ if(entry.intersectionRatio > 0.55) c.classList.add('in-focus'); else c.classList.remove('in-focus'); }); } }); },{threshold:[0.0,0.25,0.5,0.75,1.0],root:null,rootMargin:'-10% 0px -10% 0px'});
+    document.querySelectorAll('section').forEach(s=>focusObserver.observe(s));
+
+    // Keyboard snapping
+    window.addEventListener('keydown',(e)=>{ if(['ArrowDown','PageDown'].includes(e.key)){ e.preventDefault(); scrollToNextSection(); } else if(['ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); scrollToPrevSection(); } });
+    function scrollToNextSection(){ const sectionsAll = Array.from(document.querySelectorAll('section')); const currentIndex = sectionsAll.findIndex(s => s.classList.contains('in-focus')); const next = sectionsAll[currentIndex+1] || sectionsAll[sectionsAll.length-1]; if(next) smoothScrollTo(next); }
+    function scrollToPrevSection(){ const sectionsAll = Array.from(document.querySelectorAll('section')); const currentIndex = sectionsAll.findIndex(s => s.classList.contains('in-focus')); const prev = sectionsAll[currentIndex-1] || sectionsAll[0]; if(prev) smoothScrollTo(prev); }
+
+    // Active nav on scroll
+    function onScroll(){ const y = window.scrollY + headerHeight + 20; let current = sections[0]; for(const s of sections){ if(s.offsetTop <= y) current = s } links.forEach(a=>a.classList.remove('active')); const activeLink = Array.from(links).find(a=>a.getAttribute('href') === '#'+current.id); if(activeLink) activeLink.classList.add('active'); const nameEl = document.querySelector('.hero-topname'); if(window.scrollY > 120) nameEl && nameEl.classList.add('hidden'); else nameEl && nameEl.classList.remove('hidden'); }
+    window.addEventListener('scroll', onScroll); onScroll();
+
+    // Form send (placeholder - replace endpoint before publishing)
+    function submitForm(e){ e.preventDefault(); const form = document.getElementById('contactForm'); const endpoint = 'https://formspree.io/f/your_form_id_here'; const formData = new FormData(form); const msgEl = document.getElementById('formMessage'); msgEl.style.color = 'var(--muted)'; msgEl.textContent = 'Sending...'; fetch(endpoint,{method:'POST',headers:{'Accept':'application/json'},body:formData}).then(async (response)=>{ if(response.ok){ form.reset(); msgEl.style.color = '#bfe9c7'; msgEl.textContent = 'Thanks — your enquiry has been sent! We will contact you soon.'; } else { const data = await response.json().catch(()=>null); msgEl.style.color = '#f8b4c4'; msgEl.textContent = (data && data.error) ? data.error : 'Oops — there was a problem sending your message. Please try again later.'; } }).catch(err=>{ msgEl.style.color = '#f8b4c4'; msgEl.textContent = 'Network error — please check your connection and try again.'; }); }
+
+    function adjustSectionOffsets(){ const offset = headerHeight + 12; document.querySelectorAll('section').forEach(s=>s.style.scrollMarginTop = offset + 'px'); }
+    adjustSectionOffsets(); window.addEventListener('resize', adjustSectionOffsets);
+  </script>
+</body>
+</html>
